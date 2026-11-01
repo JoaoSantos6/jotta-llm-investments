@@ -29,7 +29,7 @@ meta: concluir em até 5 minutos
 | 6 | Preocupações | "Tem algum medo ou dúvida específica?" | livre; "nenhuma" | nenhuma |
 | 7 | Foco | "O que quer analisar agora?" | 1. carteira toda 2. um ativo 3. uma classe | carteira toda |
 | 8 | Formato | "Como quer receber o relatório?" | 1. chat 2. HTML 3. PDF | chat |
-| 9 | Detalhe | "Qual nível de detalhe?" | 1. resumido 2. completo | completo |
+| 9 | Detalhe | "Qual nível de detalhe?" | 1. resumido (só a leitura rápida) 2. completo (leitura rápida + "Saiba mais") | completo |
 
 ## Normalização dos ativos
 

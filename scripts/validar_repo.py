@@ -6,7 +6,7 @@ Uso:
 
 Checa: frontmatter das skills, agentes referenciados, data de revisão em rules/knowledge,
 links relativos em markdown, marcadores do template HTML, ausência de códigos internos
-nos templates do leitor, sessões de teste e .gitignore.
+nos templates do leitor, rótulos de brevidade inteligente, sessões de teste e .gitignore.
 Sai com código 1 se houver erro.
 """
 
@@ -17,9 +17,12 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parent.parent
 CAMPOS_SKILL = ["nome", "descricao", "papel", "entradas", "saidas"]
 MARCADORES_HTML = [
-    "TITULO", "META", "RESUMO", "ALERTAS", "SINTESE_LINHAS", "MACRO", "ATIVOS",
-    "CONSOLIDADA", "LACUNAS", "FONTES", "DISCLAIMER",
+    "TITULO", "META", "RESUMO", "ALERTAS", "SINTESE_LINHAS", "CARTOES", "CARTEIRA_BREVE",
+    "LIMITES", "MACRO", "ATIVOS", "CONSOLIDADA", "LACUNAS", "FONTES", "DISCLAIMER",
 ]
+# Brevidade inteligente (rules/escrita.md, seção 2a): rótulos que todo template de relatório precisa ter
+ROTULOS_BREVIDADE = ["Em uma linha", "Por que importa", "Em números", "O que observar", "Saiba mais"]
+TEMPLATES_RELATORIO = ["relatorio.md", "relatorio-chat.md", "relatorio.html"]
 TEMPLATES_LEITOR = ["relatorio.md", "relatorio-chat.md", "relatorio.html", "disclaimer.md"]
 CODIGO_INTERNO = re.compile(r"\b(?:AC|FI|FT|FP|FO|FH|TD|CA)-\d+\b|\bQ[1-7]\b")
 SECOES_TESTE = ["## Entrada", "## Comportamento esperado", "## Reprova se"]
@@ -120,6 +123,19 @@ def validar_templates_leitor():
             erro(caminho, f"código interno no template do leitor: {codigo}")
 
 
+def validar_brevidade():
+    """Templates de relatório trazem os rótulos da leitura rápida e o "Saiba mais"."""
+    for nome in TEMPLATES_RELATORIO:
+        caminho = RAIZ / "templates" / nome
+        texto = caminho.read_text(encoding="utf-8")
+        for rotulo in ROTULOS_BREVIDADE:
+            if rotulo not in texto:
+                erro(caminho, f"rótulo de brevidade ausente: '{rotulo}'")
+    html = (RAIZ / "templates" / "relatorio.html").read_text(encoding="utf-8")
+    if 'class="saiba"' not in re.sub(r"<!--.*?-->", "", html, flags=re.S):
+        erro(RAIZ / "templates" / "relatorio.html", "template sem botão 'Saiba mais' (class=\"saiba\")")
+
+
 def validar_testes():
     sessoes = sorted((RAIZ / "tests" / "sessoes").glob("*.md"))
     if not sessoes:
@@ -145,6 +161,7 @@ def main():
     validar_entrada()
     validar_template_html()
     validar_templates_leitor()
+    validar_brevidade()
     validar_testes()
     validar_gitignore()
     if erros:

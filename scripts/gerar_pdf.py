@@ -4,10 +4,13 @@
 Uso:
     python scripts/gerar_pdf.py session/relatorio.html [saida.pdf]
 
-Sem dependências Python: usa Chrome, Edge ou Chromium já instalado.
-Para forçar um navegador, defina a variável de ambiente CHROME_PATH.
+Sem dependências Python: usa Chrome, Edge, Chromium ou o chrome-headless-shell do Playwright
+já instalados. Tenta cada navegador encontrado, em ordem, até um gerar o PDF.
+Para dar preferência a um navegador, defina a variável de ambiente CHROME_PATH: ele é tentado
+primeiro, e os demais servem de alternativa se ele falhar.
 """
 
+import glob
 import os
 import shutil
 import subprocess
@@ -17,7 +20,7 @@ from pathlib import Path
 
 NOMES_NO_PATH = [
     "google-chrome", "google-chrome-stable", "chrome", "chromium", "chromium-browser",
-    "msedge", "microsoft-edge", "microsoft-edge-stable",
+    "msedge", "microsoft-edge", "microsoft-edge-stable", "chrome-headless-shell",
 ]
 
 CAMINHOS_CONHECIDOS = [
@@ -31,19 +34,62 @@ CAMINHOS_CONHECIDOS = [
     "/Applications/Chromium.app/Contents/MacOS/Chromium",
 ]
 
+# chrome-headless-shell instalado pelo Playwright: em alguns ambientes (contêineres Linux)
+# o Chromium completo trava no --print-to-pdf e o headless-shell funciona.
+PADROES_HEADLESS_SHELL = [
+    "/opt/pw-browsers/chromium_headless_shell-*/*/chrome-headless-shell",
+    os.path.expanduser("~/.cache/ms-playwright/chromium_headless_shell-*/*/chrome-headless-shell"),
+    os.path.expanduser("~/Library/Caches/ms-playwright/chromium_headless_shell-*/*/chrome-headless-shell"),
+    os.path.expandvars(r"%LOCALAPPDATA%\ms-playwright\chromium_headless_shell-*\*\chrome-headless-shell.exe"),
+]
 
-def encontrar_navegador():
-    forcado = os.environ.get("CHROME_PATH")
-    if forcado:
-        return forcado if Path(forcado).exists() else None
+TEMPO_LIMITE = 60  # segundos por navegador
+
+
+def encontrar_navegadores():
+    encontrados = []
+    preferido = os.environ.get("CHROME_PATH")
+    if preferido and Path(preferido).exists():
+        encontrados.append(preferido)
     for nome in NOMES_NO_PATH:
         caminho = shutil.which(nome)
         if caminho:
-            return caminho
-    for caminho in CAMINHOS_CONHECIDOS:
-        if Path(caminho).exists():
-            return caminho
-    return None
+            encontrados.append(caminho)
+    encontrados += [c for c in CAMINHOS_CONHECIDOS if Path(c).exists()]
+    for padrao in PADROES_HEADLESS_SHELL:
+        encontrados += sorted(glob.glob(padrao), reverse=True)
+    vistos, unicos = set(), []
+    for caminho in encontrados:
+        real = os.path.realpath(caminho)
+        if real not in vistos:
+            vistos.add(real)
+            unicos.append(caminho)
+    return unicos
+
+
+def gerar(navegador, html, pdf):
+    with tempfile.TemporaryDirectory() as perfil:
+        comando = [navegador]
+        if "headless-shell" not in Path(navegador).name:
+            comando.append("--headless=new")
+        # Como root (contêineres Linux), o Chromium exige --no-sandbox.
+        if hasattr(os, "geteuid") and os.geteuid() == 0:
+            comando.append("--no-sandbox")
+        comando += [
+            "--disable-gpu",
+            "--no-first-run",
+            f"--user-data-dir={perfil}",
+            "--no-pdf-header-footer",
+            "--print-to-pdf-no-header",
+            f"--print-to-pdf={pdf}",
+            html.as_uri(),
+        ]
+        try:
+            subprocess.run(comando, check=True, capture_output=True, timeout=TEMPO_LIMITE)
+        except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as erro:
+            print(f"Falhou com {navegador}: {erro.__class__.__name__}")
+            return False
+    return pdf.is_file() and pdf.stat().st_size > 0
 
 
 def main(argv):
@@ -62,39 +108,28 @@ def main(argv):
 
     pdf = Path(argv[2]).resolve() if len(argv) > 2 else html.with_suffix(".pdf")
 
-    navegador = encontrar_navegador()
-    if not navegador:
+    navegadores = encontrar_navegadores()
+    if not navegadores:
         print(
-            "Nenhum navegador Chromium encontrado (Chrome, Edge ou Chromium).\n"
+            "Nenhum navegador Chromium encontrado (Chrome, Edge, Chromium ou chrome-headless-shell).\n"
             "Alternativas: defina CHROME_PATH, use a ferramenta de PDF da sua LLM, ou abra o HTML "
             "no navegador → Imprimir → Salvar como PDF."
         )
         return 1
 
-    with tempfile.TemporaryDirectory() as perfil:
-        comando = [
-            navegador,
-            "--headless=new",
-            "--disable-gpu",
-            "--no-first-run",
-            f"--user-data-dir={perfil}",
-            "--no-pdf-header-footer",
-            "--print-to-pdf-no-header",
-            f"--print-to-pdf={pdf}",
-            html.as_uri(),
-        ]
-        try:
-            subprocess.run(comando, check=True, capture_output=True, timeout=120)
-        except (subprocess.CalledProcessError, subprocess.TimeoutExpired) as erro:
-            print(f"Erro ao gerar PDF com {navegador}: {erro}")
-            return 1
+    for navegador in navegadores:
+        if pdf.exists():
+            pdf.unlink()
+        if gerar(navegador, html, pdf):
+            print(f"PDF gerado: {pdf} (com {navegador})")
+            return 0
 
-    if not pdf.is_file() or pdf.stat().st_size == 0:
-        print("Erro: o navegador terminou sem gerar o PDF.")
-        return 1
-
-    print(f"PDF gerado: {pdf}")
-    return 0
+    print(
+        "Erro: nenhum navegador conseguiu gerar o PDF.\n"
+        "Alternativas: defina CHROME_PATH, use a ferramenta de PDF da sua LLM, ou abra o HTML "
+        "no navegador → Imprimir → Salvar como PDF."
+    )
+    return 1
 
 
 if __name__ == "__main__":

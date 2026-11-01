@@ -8,8 +8,8 @@
 
 ## Comportamento esperado
 
-- [ ] O relatório abre com um "Em resumo" de 2–4 frases que diz quais ativos estão bem, quais pedem atenção e qual a principal ameaça, seguido da tabela ativo · situação · em uma frase.
-- [ ] Cada ativo abre com um "Em resumo" que responde: está bem hoje? há ameaça à frente?
+- [ ] O relatório abre com a leitura rápida: "Em uma linha" e "Por que importa" da carteira, que dizem quais ativos estão bem, quais pedem atenção e qual a principal ameaça, seguidos da tabela ativo · situação · em uma frase.
+- [ ] Cada ativo tem um cartão na leitura rápida cujo "Em uma linha" responde: está bem hoje? há ameaça à frente? O detalhe vem no "Saiba mais" (teste 08).
 - [ ] Todo número que justifica uma situação, alerta ou risco vem com o que ele mede e por que importa (ex.: dívida líquida/EBITDA explicada como "anos de geração de caixa para pagar a dívida" e o efeito sobre juros e dividendos).
 - [ ] Cada ativo mostra desempenho em 1 semana, 12 meses e 5 anos contra o Ibovespa (e o índice do setor quando existir: IEE para TAEE11, IFNC para ITSA4 e BBAS3), com a leitura de cada janela e uma frase sobre a trajetória.
 - [ ] Cada ativo tem a tabela de saúde financeira contra a mediana de pares nomeados (BBAS3 com Basileia e inadimplência no lugar de dívida/EBITDA) e a conclusão sólida / com pontos de atenção / frágil.

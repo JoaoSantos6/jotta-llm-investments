@@ -1,21 +1,27 @@
 <!doctype html>
 <!--
-  Template do relatório HTML (autocontido: sem CSS/JS/fontes/imagens externas).
+  Template do relatório HTML (autocontido: CSS e JS inline, sem CSS/JS/fontes/imagens externas).
   Como preencher (skills/gerar-relatorio). Mesmo conteúdo de session/relatorio.md,
   escrito para o investidor (rules/escrita.md): sem códigos internos, todo número explicado.
+  Brevidade inteligente (rules/escrita.md, seção 2a): parte 1 "Leitura rápida" com cartões curtos;
+  parte 2 "Saiba mais" com o detalhe, aberto pelos botões "Saiba mais".
     {{TITULO}}          "Sua carteira em AAAA-MM-DD"
     {{META}}            objetivo · horizonte · tolerância · data de coleta (texto simples)
-    {{RESUMO}}          <p> com o "Em resumo" da carteira (2–4 frases)
-    {{SINTESE_LINHAS}}  <tr> por ativo: ativo, situação (badge), em uma frase
-    {{ALERTAS}}         <li> por item de "O que merece sua atenção"; use <span class="estado e-perigoso">Perigoso</span> etc.
-    {{ATIVOS}}          um <section class="ativo"> por ativo (ver exemplo comentado abaixo)
+    {{RESUMO}}          <p> com "Em uma linha" e "Por que importa" da carteira
+    {{SINTESE_LINHAS}}  <tr data-alvo="d-TICKER"> por ativo: ativo, situação (badge), em uma frase
+    {{ALERTAS}}         <li> por item de "O que merece sua atenção" (até 40 palavras cada)
+    {{CARTOES}}         um <article class="cartao"> por ativo (ver exemplo comentado abaixo)
+    {{CARTEIRA_BREVE}}  <p> com "Em uma linha", "Por que importa" e <ul class="numeros"> da carteira e cenário
+    {{LIMITES}}         <li> com até 3 lacunas que mudam a conclusão
+    {{ATIVOS}}          um <section class="detalhe" id="d-TICKER"> por ativo, com o "Saiba mais" completo
     {{CONSOLIDADA}}     <p> para concentração, juros/inflação/câmbio, riscos em comum, seu perfil
     {{MACRO}}           <p> com o cenário econômico
-    {{LACUNAS}}         <li> por item de "O que esta análise não cobriu"
+    {{LACUNAS}}         <li> por item de "O que esta análise não cobriu" (lista completa)
     {{FONTES}}          <li id="f1"> por fonte: nome — <a href>URL</a> — ref. — coletado em
     {{DISCLAIMER}}      texto de templates/disclaimer.md, sem alterações
   Classes de estado: e-saudavel | e-atencao | e-queda | e-perigoso
-  Referências [n] no texto: <a class="ref" href="#fn">[n]</a>
+  Referências [n] no texto: <a class="ref" href="#fn" data-n="n">[n]</a>
+  Botões "Saiba mais": <button class="saiba" aria-expanded="false" aria-controls="d-ID">Saiba mais</button>
 -->
 <html lang="pt-BR">
 <head>
@@ -24,96 +30,182 @@
 <title>{{TITULO}}</title>
 <style>
   :root {
-    --bg: #ffffff; --fg: #1c1e21; --muted: #5f6368; --line: #dadce0; --soft: #f5f6f7;
+    --bg: #ffffff; --fg: #1c1e21; --muted: #5f6368; --line: #dadce0; --soft: #f5f6f7; --card: #ffffff; --accent: #1a56db;
     --saudavel: #1e7d32; --atencao: #a66a00; --queda: #c2410c; --perigoso: #b3261e;
+  }
+  :root[data-theme="dark"] {
+    --bg: #16181b; --fg: #e8eaed; --muted: #a0a4aa; --line: #3a3d42; --soft: #202327; --card: #1b1e22; --accent: #8ab4f8;
+    --saudavel: #6cc070; --atencao: #e0a840; --queda: #f08a55; --perigoso: #f2827a;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #16181b; --fg: #e8eaed; --muted: #a0a4aa; --line: #3a3d42; --soft: #202327;
+      --bg: #16181b; --fg: #e8eaed; --muted: #a0a4aa; --line: #3a3d42; --soft: #202327; --card: #1b1e22; --accent: #8ab4f8;
       --saudavel: #6cc070; --atencao: #e0a840; --queda: #f08a55; --perigoso: #f2827a;
     }
   }
   * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 64px; }
   body { margin: 0; background: var(--bg); color: var(--fg);
-         font: 15px/1.55 -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
-  main { max-width: 880px; margin: 0 auto; padding: 32px 16px 48px; }
-  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+         font: 15px/1.6 -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+  header.barra { position: sticky; top: 0; z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line); }
+  .barra-in { max-width: 920px; margin: 0 auto; padding: 8px 16px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .barra-in .marca { font-weight: 600; flex: 1; font-size: .92rem; }
+  button { font: inherit; color: var(--fg); background: var(--soft); border: 1px solid var(--line); border-radius: 6px; padding: 5px 12px; cursor: pointer; }
+  button:hover { border-color: var(--accent); }
+  button:focus-visible, a:focus-visible, tr[data-alvo]:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  main { max-width: 920px; margin: 0 auto; padding: 24px 16px 64px; }
+  h1 { font-size: 1.6rem; margin: 8px 0 4px; }
   h2 { font-size: 1.25rem; margin: 36px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
-  h3 { font-size: 1.05rem; margin: 20px 0 8px; }
-  .meta { color: var(--muted); margin: 0 0 24px; }
-  table { width: 100%; border-collapse: collapse; margin: 8px 0 16px; font-size: .93rem; }
-  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  th { background: var(--soft); font-weight: 600; }
+  h3 { font-size: 1.08rem; margin: 18px 0 8px; }
+  h4 { font-size: .98rem; margin: 16px 0 6px; }
+  .meta { color: var(--muted); margin: 0 0 20px; }
+  .parte { font-size: .78rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 28px 0 0; }
+  .tempo { color: var(--muted); font-size: .85rem; }
   .tabela { overflow-x: auto; }
-  .alertas { background: var(--soft); border-left: 4px solid var(--perigoso); padding: 12px 16px 12px 36px; border-radius: 4px; }
-  .alertas li { margin: 4px 0; }
-  .estado { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: .82rem; font-weight: 600;
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 16px; font-size: .93rem; }
+  th, td { text-align: left; padding: 7px 9px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--soft); font-weight: 600; }
+  tr[data-alvo] { cursor: pointer; } tr[data-alvo]:hover td { background: var(--soft); }
+  .estado { display: inline-block; padding: 1px 9px; border-radius: 11px; font-size: .8rem; font-weight: 600;
             border: 1px solid currentColor; white-space: nowrap; }
   .e-saudavel { color: var(--saudavel); } .e-atencao { color: var(--atencao); }
   .e-queda { color: var(--queda); } .e-perigoso { color: var(--perigoso); }
-  .ativo { border: 1px solid var(--line); border-radius: 6px; padding: 4px 16px 12px; margin: 16px 0; break-inside: avoid-page; }
-  .ativo h3 { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
-  .resumo p, .em-resumo { font-size: 1.02rem; }
-  a { color: inherit; } a.ref { text-decoration: none; color: var(--muted); font-size: .85em; }
+  .alertas { padding-left: 22px; } .alertas li { margin: 8px 0; }
+  .cartoes { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+  .cartao { border: 1px solid var(--line); border-top: 4px solid currentColor; border-radius: 8px; padding: 12px 14px; background: var(--card); color: var(--fg); display: flex; flex-direction: column; }
+  .cartao.e-saudavel { border-top-color: var(--saudavel); } .cartao.e-atencao { border-top-color: var(--atencao); }
+  .cartao.e-queda { border-top-color: var(--queda); } .cartao.e-perigoso { border-top-color: var(--perigoso); }
+  .cartao h3 { margin: 0 0 6px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .cartao p { margin: 6px 0; }
+  .numeros { list-style: none; padding: 0; margin: 6px 0; }
+  .numeros li { padding: 3px 0 3px 10px; border-left: 3px solid var(--line); margin: 4px 0; font-size: .92rem; }
+  .cartao .saiba { margin-top: auto; align-self: flex-start; }
+  .saiba { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600; }
+  .saiba[aria-expanded="true"] { background: var(--soft); color: var(--fg); border-color: var(--line); }
+  .js .detalhe:not(.aberto) { display: none; }
+  .detalhe { border: 1px solid var(--line); border-radius: 8px; padding: 6px 16px 14px; margin: 14px 0; background: var(--card); }
+  .detalhe > h3:first-child { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .voltar { font-size: .85rem; }
+  .fechados { color: var(--muted); font-size: .9rem; }
+  a { color: var(--accent); }
+  a.ref { text-decoration: none; color: var(--muted); font-size: .82em; padding: 0 1px; border-radius: 3px; }
+  a.ref:hover { background: var(--soft); color: var(--accent); }
+  #pop { position: fixed; z-index: 50; max-width: 420px; background: var(--card); border: 1px solid var(--line); border-radius: 8px;
+         padding: 10px 12px; font-size: .82rem; box-shadow: 0 6px 24px rgba(0,0,0,.2); display: none; word-break: break-word; }
+  #pop b { display: block; margin-bottom: 4px; }
   .fontes { font-size: .85rem; color: var(--muted); word-break: break-word; }
+  .fontes li:target { background: var(--soft); color: var(--fg); }
   .disclaimer { margin-top: 32px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 4px; font-size: .85rem; color: var(--muted); }
   @media print {
-    :root { --bg: #fff; --fg: #000; --muted: #444; --soft: #f2f2f2; }
+    :root, :root[data-theme="dark"] { --bg: #fff; --fg: #000; --muted: #444; --soft: #f2f2f2; --card: #fff; --line: #ccc; }
+    header.barra, .so-tela, .saiba, #pop, .voltar { display: none !important; }
+    .js .detalhe:not(.aberto) { display: block !important; }
+    .detalhe { border: 0; padding: 0; break-before: page; }
+    #saiba-mais { break-before: page; }
+    .detalhe:first-of-type { break-before: auto; }  /* o primeiro detalhe segue o título da parte 2 */
     main { padding: 0; max-width: none; }
-    a { text-decoration: none; }
-    h2 { break-after: avoid; }
+    a { text-decoration: none; color: inherit; }
+    h2, h3, h4 { break-after: avoid; }
+    .cartao, tr { break-inside: avoid; }
+    .cartoes { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
 <body>
+<header class="barra">
+  <div class="barra-in">
+    <span class="marca">{{TITULO}}</span>
+    <button id="alternar" type="button" aria-pressed="false">Abrir todos os detalhes</button>
+    <button id="tema" type="button" aria-label="Alternar tema claro e escuro">Tema</button>
+    <button id="imprimir" type="button">Imprimir / PDF</button>
+  </div>
+</header>
 <main>
   <h1>{{TITULO}}</h1>
   <p class="meta">{{META}}</p>
 
-  <h2>Em resumo</h2>
-  <div class="resumo">{{RESUMO}}</div>
-  <div class="tabela">
-    <table>
-      <thead><tr><th>Ativo</th><th>Situação</th><th>Em uma frase</th></tr></thead>
-      <tbody>
-        {{SINTESE_LINHAS}}
-      </tbody>
-    </table>
+  <p class="parte">Parte 1 · Leitura rápida <span class="tempo" id="tempo"></span></p>
+  <div id="leitura-rapida">
+    <h2>Em resumo</h2>
+    <div class="resumo">{{RESUMO}}</div>
+    <div class="tabela">
+      <table>
+        <thead><tr><th>Ativo</th><th>Situação</th><th>Em uma frase</th></tr></thead>
+        <tbody>
+          {{SINTESE_LINHAS}}
+        </tbody>
+      </table>
+    </div>
+
+    <h2>O que merece sua atenção</h2>
+    <ol class="alertas">
+      {{ALERTAS}}
+    </ol>
+
+    <h2>Ativo por ativo</h2>
+    <div class="cartoes">
+      {{CARTOES}}
+    </div>
+    <!--
+    <article class="cartao e-atencao" id="c-TAEE4">
+      <h3>TAEE4 — Taesa <span class="estado e-atencao">Atenção</span></h3>
+      <p><strong>Em uma linha.</strong> A dívida subiu acima do patamar do setor <a class="ref" href="#f12" data-n="12">[12]</a>.</p>
+      <p><strong>Por que importa.</strong> Mais caixa vai para juros em vez de dividendos.</p>
+      <p><strong>Em números.</strong></p>
+      <ul class="numeros"><li>3,5 anos <a class="ref" href="#f12" data-n="12">[12]</a> — de geração de caixa para pagar a dívida; acima dos concorrentes</li></ul>
+      <p><strong>O que observar.</strong> Balanço do 3T (nov) — mostra a dívida depois da compra.</p>
+      <button class="saiba" type="button" aria-expanded="false" aria-controls="d-TAEE4">Saiba mais sobre TAEE4</button>
+    </article>
+    -->
+
+    <h2>Carteira e cenário</h2>
+    {{CARTEIRA_BREVE}}
+    <p class="so-tela">
+      <button class="saiba" type="button" aria-expanded="false" aria-controls="d-carteira">Saiba mais sobre a carteira</button>
+      <button class="saiba" type="button" aria-expanded="false" aria-controls="d-cenario">Saiba mais sobre o cenário</button>
+    </p>
+
+    <h2>Limites desta leitura</h2>
+    <ul>
+      {{LIMITES}}
+    </ul>
+    <p class="so-tela"><button class="saiba" type="button" aria-expanded="false" aria-controls="d-lacunas">Ver todas as lacunas</button></p>
   </div>
 
-  <h2>O que merece sua atenção</h2>
-  <ol class="alertas">
-    {{ALERTAS}}
-  </ol>
+  <p class="parte" id="saiba-mais">Parte 2 · Saiba mais</p>
+  <p class="fechados so-tela">O detalhe de cada ativo e tema abre pelos botões "Saiba mais" da leitura rápida, ou todo de uma vez pelo botão "Abrir todos os detalhes" no topo.</p>
 
-  <h2>Ativo por ativo</h2>
   {{ATIVOS}}
   <!--
-  <section class="ativo">
-    <h3>HGLG11 — Nome do fundo <span class="estado e-atencao">Atenção</span></h3>
-    <p class="em-resumo"><strong>Em resumo.</strong> Como o ativo está hoje e qual a principal ameaça à frente.</p>
-    <h4>Por que essa situação</h4>
-    <ul><li><strong>Cota acima do valor dos imóveis.</strong> A cota é negociada 22% acima do valor patrimonial (P/VP de 1,22) <a class="ref" href="#f3">[3]</a>. Quanto mais acima, mais o preço depende de o rendimento continuar alto.</li></ul>
-    <h4>Como está hoje</h4><p>…</p>
-    <h4>O que vem pela frente (3–12 meses)</h4><p>…</p>
+  <section class="detalhe" id="d-TAEE4">
+    <h3>Saiba mais: TAEE4 — Taesa <span class="estado e-atencao">Atenção</span></h3>
+    <h4>Por que essa situação</h4><ul>…</ul>
+    <h4>Como está hoje</h4><div class="tabela"><table>…</table></div>
+    <h4>O que vem pela frente (3–12 meses)</h4><ul>…</ul>
     <h4>Setor e cenário</h4><p>…</p>
-    <h4>O que pode mudar o quadro</h4>
-    <div class="tabela"><table><thead><tr><th>Fator</th><th>Efeito possível</th><th>Sinal para observar</th></tr></thead><tbody>…</tbody></table></div>
+    <h4>O que pode mudar o quadro</h4><div class="tabela"><table>…</table></div>
     <h4>Riscos</h4><ol>…</ol>
     <h4>O que acompanhar</h4><ul>…</ul>
+    <p><a class="voltar" href="#c-TAEE4">↑ Voltar à leitura rápida</a></p>
   </section>
   -->
 
-  <h2>A carteira como um todo</h2>
-  {{CONSOLIDADA}}
+  <section class="detalhe" id="d-carteira">
+    <h3>Saiba mais: a carteira como um todo</h3>
+    {{CONSOLIDADA}}
+  </section>
 
-  <h2>Cenário econômico</h2>
-  {{MACRO}}
+  <section class="detalhe" id="d-cenario">
+    <h3>Saiba mais: cenário econômico</h3>
+    {{MACRO}}
+  </section>
 
-  <h2>O que esta análise não cobriu</h2>
-  <ul>
-    {{LACUNAS}}
-  </ul>
+  <section class="detalhe" id="d-lacunas">
+    <h3>Saiba mais: o que esta análise não cobriu</h3>
+    <ul>
+      {{LACUNAS}}
+    </ul>
+  </section>
 
   <h2>Fontes</h2>
   <ol class="fontes">
@@ -122,5 +214,89 @@
 
   <p class="disclaimer">{{DISCLAIMER}}</p>
 </main>
+<div id="pop" role="dialog" aria-live="polite"></div>
+<script>
+(function () {
+  var doc = document.documentElement;
+  doc.classList.add('js');
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  // Tema (lembrado só neste navegador; a página funciona sem isso)
+  function tema(t) { doc.setAttribute('data-theme', t); try { localStorage.setItem('tema', t); } catch (e) {} }
+  var salvo = null; try { salvo = localStorage.getItem('tema'); } catch (e) {}
+  if (salvo) tema(salvo);
+  $('#tema').onclick = function () {
+    var escuro = doc.getAttribute('data-theme') === 'dark' ||
+      (!doc.getAttribute('data-theme') && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches);
+    tema(escuro ? 'light' : 'dark');
+  };
+  $('#imprimir').onclick = function () { window.print(); };
+
+  // Tempo de leitura da parte 1
+  var lr = $('#leitura-rapida');
+  if (lr) {
+    var palavras = (lr.innerText || '').split(/\s+/).filter(Boolean).length;
+    $('#tempo').textContent = '· cerca de ' + Math.max(1, Math.round(palavras / 200)) + ' min';
+  }
+
+  // Botões "Saiba mais"
+  function botoesDe(id) { return $$('.saiba[aria-controls="' + id + '"]'); }
+  function abrir(id, rolar) {
+    var d = document.getElementById(id); if (!d) return;
+    d.classList.add('aberto');
+    botoesDe(id).forEach(function (b) { b.setAttribute('aria-expanded', 'true'); });
+    if (rolar) d.scrollIntoView();
+  }
+  function fechar(id) {
+    var d = document.getElementById(id); if (!d) return;
+    d.classList.remove('aberto');
+    botoesDe(id).forEach(function (b) { b.setAttribute('aria-expanded', 'false'); });
+  }
+  $$('.saiba').forEach(function (b) {
+    b.onclick = function () {
+      var id = b.getAttribute('aria-controls');
+      if (b.getAttribute('aria-expanded') === 'true') fechar(id); else abrir(id, true);
+    };
+  });
+  $$('tr[data-alvo]').forEach(function (r) {
+    r.tabIndex = 0;
+    var ir = function () { abrir(r.getAttribute('data-alvo'), true); };
+    r.onclick = ir;
+    r.onkeydown = function (e) { if (e.key === 'Enter' || e.key === ' ') { ir(); e.preventDefault(); } };
+  });
+  var alternar = $('#alternar');
+  alternar.onclick = function () {
+    var abrirTudo = alternar.getAttribute('aria-pressed') !== 'true';
+    $$('.detalhe').forEach(function (d) { if (abrirTudo) abrir(d.id); else fechar(d.id); });
+    alternar.setAttribute('aria-pressed', abrirTudo ? 'true' : 'false');
+    alternar.textContent = abrirTudo ? 'Fechar todos os detalhes' : 'Abrir todos os detalhes';
+  };
+  // Link direto para um detalhe (#d-TICKER) abre o detalhe
+  if (location.hash && /^#d-/.test(location.hash)) abrir(location.hash.slice(1), true);
+  // Na impressão (e no PDF), todo o detalhe sai aberto
+  addEventListener('beforeprint', function () { $$('.detalhe').forEach(function (d) { d.classList.add('aberto'); }); });
+
+  // Referências [n]: mostra a fonte sem sair da leitura
+  var pop = $('#pop');
+  function esconder() { pop.style.display = 'none'; }
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest && e.target.closest('a.ref');
+    if (!a) { if (!e.target.closest('#pop')) esconder(); return; }
+    var n = a.getAttribute('data-n'), li = document.getElementById('f' + n);
+    if (!li) return;
+    e.preventDefault();
+    pop.innerHTML = '<b>Fonte [' + n + ']</b>' + li.innerHTML;
+    pop.style.display = 'block';
+    var r = a.getBoundingClientRect(), w = Math.min(420, innerWidth - 24);
+    pop.style.width = w + 'px';
+    pop.style.left = Math.max(12, Math.min(r.left, innerWidth - w - 12)) + 'px';
+    var abaixo = r.bottom + 8, h = pop.offsetHeight;
+    pop.style.top = (abaixo + h > innerHeight ? Math.max(8, r.top - h - 8) : abaixo) + 'px';
+  });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') esconder(); });
+  addEventListener('scroll', esconder, { passive: true });
+})();
+</script>
 </body>
 </html>

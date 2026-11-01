@@ -11,7 +11,7 @@ Carteiras-exemplo com **comportamento esperado**. Como os dados de mercado mudam
 
 ## Critério de aprovação de uma LLM
 
-A LLM "executa o fluxo completo" (métrica do PRD) se passar nos testes 01, 02, 05 e 07 sem nenhum item de **Reprova se**.
+A LLM "executa o fluxo completo" (métrica do PRD) se passar nos testes 01, 02, 05, 07 e 08 sem nenhum item de **Reprova se**.
 
 ## Registro
 
