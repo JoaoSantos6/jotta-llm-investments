@@ -1,38 +1,63 @@
 <!-- Formato da entrega no chat. Deriva de session/relatorio.md; não adiciona fatos.
      Siga rules/escrita.md: conclusão primeiro, sem códigos internos, todo número explicado,
-     nada depois do aviso legal (sem "próximos passos", ofertas ou perguntas). -->
+     nada depois do aviso legal (sem "próximos passos", ofertas ou perguntas).
+     Brevidade inteligente (rules/escrita.md, seção 2a): toda a leitura rápida vem primeiro, junta.
+       detalhe "resumido": só a leitura rápida (+ limites, fontes citadas e aviso legal).
+       detalhe "completo": leitura rápida + "Saiba mais" com todas as seções do relatório canônico. -->
 
 ## Sua carteira em AAAA-MM-DD
 
-**Em resumo:** 2–4 frases. Os ativos estão bem? Existe ameaça à frente? Qual a mais importante? [n]
+**Em uma linha.** Os ativos estão bem? Qual a ameaça mais importante? [n]
+
+**Por que importa.** A consequência possível, em 1–2 frases.
 
 | Ativo | Situação | Em uma frase |
 | --- | --- | --- |
 | TICKER | 🟡 Atenção | O que acontece e por que importa [n] |
 
 ### O que merece sua atenção
-1. 🔴 **TICKER — título curto.** Fato [n]. O que significa e qual a consequência possível.
+1. 🔴 **TICKER — título curto.** Fato [n], o que significa e a consequência possível (até 40 palavras).
 2. …
 
 ### Ativo por ativo
-<!-- detalhe "resumido": "Em resumo" + desempenho + saúde financeira + "Por que essa situação" + até 3 riscos + o que acompanhar.
-     detalhe "completo": todas as seções do relatório canônico. -->
 
 **TICKER — Nome · 🟡 Atenção**
-
-Em resumo: como está hoje e qual a principal ameaça, em 2–3 frases.
-
-- **Desempenho:** 1 semana / 12 meses / 5 anos contra o índice [n], com uma frase sobre o que a trajetória mostra.
-- **Saúde financeira: sólida / com pontos de atenção / frágil.** Os 2–3 indicadores que sustentam a conclusão, cada um contra a mediana do setor [n].
-- **Por quê:** fato [n] → o que mede → por que importa.
-- **Riscos:** risco explicado [n]; …
-- **O que acompanhar:** indicador ou evento (data) — por que importa.
-
-### A carteira como um todo
-Concentração, exposição a juros, inflação e câmbio e compatibilidade com o seu perfil, em até 5 linhas, cada fato com o que significa.
-
-### O que esta análise não cobriu
+**Em uma linha.** … [n]
+**Por que importa.** …
+**Em números.**
+- valor [n] — o que significa e se é bom ou ruim
 - …
+**O que observar.** Evento (data) — por que importa.
+
+<!-- repetir o cartão para cada ativo -->
+
+### Carteira e cenário
+**Em uma linha.** … **Por que importa.** … (até 60 palavras)
+
+### Limites desta leitura
+- Até 3 lacunas que mudam a conclusão.
+
+<!-- ===== Só no detalhe "completo" ===== -->
+
+---
+
+## Saiba mais
+
+### Saiba mais: TICKER — Nome
+<!-- Todas as seções do "Saiba mais" do relatório canônico: por que essa situação, como está hoje
+     (desempenho, saúde financeira, qualidade, preço), o que vem pela frente, setor e cenário,
+     o que pode mudar o quadro, riscos e o que acompanhar. -->
+
+### Saiba mais: a carteira como um todo
+Concentração, exposição a juros, inflação e câmbio, riscos em comum e compatibilidade com o seu perfil.
+
+### Saiba mais: cenário econômico
+Cada dado com o ativo que ele afeta.
+
+### Saiba mais: o que esta análise não cobriu
+- …
+
+<!-- ===== Fim do trecho só do "completo" ===== -->
 
 <details><summary>Fontes</summary>
 

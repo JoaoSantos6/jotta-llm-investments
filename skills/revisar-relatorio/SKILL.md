@@ -46,6 +46,21 @@ Assuma o papel de [`agents/revisor.md`](../../agents/revisor.md). Você **não r
 - [ ] E7. Cada ativo tem desempenho em 1 semana, 12 meses e 5 anos contra o índice de referência, e a conclusão de saúde financeira (sólida / com pontos de atenção / frágil) — ou a lacuna explicada.
 - [ ] E8. Sem especulação ("provavelmente", "parece que") e sem narrar a coleta no corpo do texto ("não consegui ler…").
 
+### F. Brevidade inteligente (bloqueante — ver `rules/escrita.md`, seção 2a)
+- [ ] F1. O relatório tem as duas partes, nesta ordem: "Leitura rápida" (inteira) e depois "Saiba mais".
+- [ ] F2. Cada ativo tem um cartão na leitura rápida com os quatro rótulos, nesta ordem: "Em uma linha", "Por que importa", "Em números" e "O que observar". A carteira tem "Em uma linha" e "Por que importa".
+- [ ] F3. Limites de tamanho, contados sem as referências `[n]`:
+  - cartão de cada ativo: até 80 palavras;
+  - "Em resumo" da carteira: até 60 palavras, mais a tabela;
+  - cada item de atenção: até 40 palavras;
+  - "Em números": até 3 itens.
+- [ ] F4. A leitura rápida não tem tabelas além da síntese, nem contas ou listas de indicadores. Cada número dela traz, na mesma linha, o que significa e se é bom ou ruim.
+- [ ] F5. Coerência entre as camadas:
+  - a leitura rápida não contradiz o "Saiba mais";
+  - todo fato da leitura rápida reaparece, com o detalhe, no "Saiba mais" do mesmo ativo ou tema;
+  - leitura provisória e lacunas que mudam a conclusão estão já na leitura rápida.
+- [ ] F6. O "Saiba mais" tem todas as seções obrigatórias (C2). Nada foi cortado em nome da brevidade.
+
 ### D. Qualidade (não bloqueante — gera recomendação de melhoria)
 - [ ] D1. Termos técnicos explicados na primeira ocorrência.
 - [ ] D4. Frases longas ou parágrafos com mais de 4 linhas que poderiam ser quebrados.
@@ -54,8 +69,8 @@ Assuma o papel de [`agents/revisor.md`](../../agents/revisor.md). Você **não r
 
 ## Veredito
 
-- **APROVADO**: todos os itens A, B, C e E marcados.
-- **REPROVADO**: qualquer item A, B, C ou E falhou.
+- **APROVADO**: todos os itens A, B, C, E e F marcados.
+- **REPROVADO**: qualquer item A, B, C, E ou F falhou.
 
 Grave `session/revisao.md`:
 

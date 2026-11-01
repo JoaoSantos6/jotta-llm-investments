@@ -1,6 +1,6 @@
 # Rule — Escrita para o leitor
 
-> Revisado em: 2026-10-31
+> Revisado em: 2026-11-01
 
 Quem lê o relatório quer saber duas coisas: **meus ativos estão bem?** e **existe alguma ameaça à frente?** Essa pessoa não sabe, e não precisa saber, como o framework funciona por dentro. Esta rule vale para tudo que o usuário lê: `session/relatorio.md`, a versão de chat, o HTML e o PDF.
 
@@ -28,6 +28,53 @@ Escreva em pirâmide invertida:
 3. **O detalhe técnico** — tabelas e indicadores para quem quiser conferir.
 
 Quem ler só o primeiro nível precisa sair com a resposta certa.
+
+## 2a. Brevidade inteligente: leitura rápida e "Saiba mais"
+
+O relatório tem duas camadas, inspiradas no método de *Smart Brevity* (ver `knowledge/referencias.md`). A ideia não é cortar conteúdo. É **ordenar** o conteúdo: o essencial chega primeiro, curto e sem susto, e a parte densa fica disponível para quem quiser aprofundar.
+
+| Camada | Para quem | O que traz |
+| --- | --- | --- |
+| **Leitura rápida** | Todo leitor, em 2–3 minutos | A resposta: como está a carteira, como está cada ativo, o que observar. |
+| **Saiba mais** | Quem quer conferir ou entender a fundo | Tabelas, indicadores comparados, resultados, riscos completos, cenário, lacunas, fontes. |
+
+### Blocos da leitura rápida
+
+Cada ativo, e também a carteira, abre com os mesmos rótulos fixos, nesta ordem:
+
+| Rótulo | O que é | Limite |
+| --- | --- | --- |
+| **Em uma linha.** | A coisa mais importante, numa frase com verbo forte. Responde "está bem? qual a ameaça?". | 1 frase, até 30 palavras |
+| **Por que importa.** | A consequência possível para o investidor (proventos, preço, risco). | 1–2 frases |
+| **Em números.** | Até 3 números que sustentam a leitura. Cada um no formato `valor [n] — o que significa e se é bom ou ruim`. | 3 itens, até 20 palavras cada |
+| **O que observar.** | O próximo evento ou indicador que pode mudar o quadro, com data. | 1–2 itens |
+
+Depois desses rótulos vem o link para o "Saiba mais" do mesmo bloco.
+
+### Regras da camada 1
+
+- **Limite de tamanho:**
+  - cartão de cada ativo: até **80 palavras**, sem contar as referências `[n]`;
+  - "Em resumo" da carteira: até **60 palavras**, mais a tabela-síntese;
+  - cada item de "O que merece sua atenção": até **40 palavras**.
+- **Sem tabelas**, exceto a tabela-síntese (ativo · situação · em uma frase). Sem listas de indicadores e sem contas.
+- **Todo número continua explicado** (seção 3). Na camada 1, a explicação cabe na mesma linha do número.
+- **Não pode contradizer a camada 2.** Todo fato da leitura rápida tem `[n]` e reaparece no "Saiba mais" com o detalhe que o sustenta.
+- **Leitura provisória** e as lacunas que mudam a conclusão aparecem já na camada 1, numa frase. A lista completa fica no "Saiba mais".
+
+### Regras da camada 2
+
+- Contém **todo** o conteúdo obrigatório do relatório: desempenho nas três janelas, saúde financeira, qualidade, preço, o que vem pela frente, cenário, o que pode mudar o quadro, riscos, o que acompanhar, lacunas e fontes. Nada sai do relatório por causa da brevidade.
+- As demais seções desta rule (número explicado, comparar e concluir, texto limpo) continuam valendo.
+- Cada bloco abre com o título "Saiba mais" seguido do nome do ativo ou tema, para que o leitor saiba que entrou na parte detalhada.
+
+### Como cada formato mostra as camadas
+
+| Formato | Leitura rápida | Saiba mais |
+| --- | --- | --- |
+| Chat | Sempre presente, no topo da resposta. | Só no detalhe "completo", depois de toda a leitura rápida, sob o título "Saiba mais". |
+| HTML | Primeira parte da página, com um cartão por ativo. | Cada cartão tem um **botão "Saiba mais"** que abre o detalhe do ativo. Há também um botão para abrir ou fechar todos os detalhes. |
+| PDF | Primeiras páginas: o leitor tem a resposta inteira antes de virar para o detalhe. | Parte seguinte, com todo o detalhe aberto; cada ativo começa em página nova. |
 
 ## 3. Nenhum número sozinho
 

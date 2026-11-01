@@ -55,9 +55,9 @@ Use [`knowledge/carteira/criterios.md`](../../knowledge/carteira/criterios.md):
 
 Monte o relatório canônico a partir de [`templates/relatorio.md`](../../templates/relatorio.md). É este arquivo que o revisor avalia e do qual todos os formatos de saída derivam. Fontes numeradas `[n]` são únicas para o relatório inteiro.
 
-Aqui você **traduz** a análise para o investidor (`rules/escrita.md`):
+Aqui você **traduz** a análise para o investidor (`rules/escrita.md`). O relatório tem duas partes (seção 2a da rule): **Leitura rápida** e **Saiba mais**.
 
-1. Escreva primeiro o "Em resumo" de cada ativo e o da carteira: está bem? há ameaça à frente? Depois os porquês.
+1. Escreva primeiro o "Saiba mais" de cada ativo, completo, a partir do arquivo de análise. Depois **destile** a leitura rápida a partir dele: o cartão de cada ativo e o "Em resumo" da carteira, com os rótulos fixos (em uma linha, por que importa, em números, o que observar) e dentro dos limites de palavras. Destilar é escolher o que mais importa, não reescrever: a leitura rápida não traz fato que o "Saiba mais" não sustente.
 2. Converta cada critério disparado em um sinal explicado: fato, o que mede, comparação com a referência e consequência possível. Ex.: AC-02 disparado vira "a dívida equivale a 4,2 anos da geração de caixa da operação; para uma transmissora, acima de 4 vezes é alto, e mais caixa vai para juros em vez de dividendos".
 3. Critérios não disparados viram, no máximo, uma frase sobre o que está em ordem. Dados insuficientes viram uma frase sobre o que faltou e o efeito na leitura.
 4. Contas e reconstruções ficam no arquivo de análise; no relatório, só o resultado com a fonte.
@@ -67,14 +67,16 @@ Correspondência entre as seções da análise e do relatório:
 
 | Arquivo de análise | Relatório |
 | --- | --- |
-| Classificação | Situação no título + "Em resumo" + "Por que essa situação" |
+| Classificação + principal sinal + o evento mais próximo | Cartão do ativo na **Leitura rápida** (em uma linha, por que importa, em números, o que observar) |
+| Classificação | Situação no título + "Por que essa situação" (no "Saiba mais") |
 | Estado atual (desempenho, saúde financeira, perfil Q1–Q7, múltiplos) | "Como está hoje": "Desempenho", "Saúde financeira", "Qualidade do negócio", "Preço em relação a lucro e patrimônio" |
 | Expectativa 3–12 meses | "O que vem pela frente" |
 | Cenário do setor/mercado | "Setor e cenário" |
 | Impactos possíveis | "O que pode mudar o quadro" |
 | Riscos | "Riscos" (rótulo de categoria vira o nome do risco em linguagem comum) |
 | O que monitorar | "O que acompanhar" |
-| Perguntas em aberto não resolvidas, lacunas | "O que esta análise não cobriu" |
+| Perguntas em aberto não resolvidas, lacunas | "Limites desta leitura" (até 3, as que mudam a conclusão) + "Saiba mais: o que esta análise não cobriu" (lista completa) |
+| Consolidada (concentração e fator de mercado mais relevante) | "Carteira e cenário" na leitura rápida + "Saiba mais: a carteira como um todo" e "Saiba mais: cenário econômico" |
 
 ## Tom
 

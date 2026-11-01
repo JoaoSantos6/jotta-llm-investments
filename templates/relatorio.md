@@ -1,17 +1,24 @@
 <!-- Relatório canônico: o revisor avalia este arquivo e todos os formatos derivam dele.
      Escrito para o investidor, não para o framework: siga rules/escrita.md.
      Sem códigos internos, sem "critério disparado", sem nomes de arquivos do repositório.
-     Todo número vem com o que ele mede e por que importa. -->
+     Todo número vem com o que ele mede e por que importa.
+     Duas camadas (rules/escrita.md, seção 2a):
+       Parte 1 "Leitura rápida": a resposta inteira, curta, sem tabelas além da síntese.
+       Parte 2 "Saiba mais": todo o detalhe. Nada obrigatório sai do relatório. -->
 
 # Sua carteira em AAAA-MM-DD
 
 *Objetivo: … · Horizonte: … · Tolerância a risco: … · Dados coletados em AAAA-MM-DD*
 
+# Leitura rápida
+
 ## Em resumo
 
-<!-- 2–4 frases que respondem: os ativos estão bem? Existe ameaça à frente? Qual a mais importante?
-     Quem ler só este parágrafo e a tabela precisa sair com a resposta certa. -->
-Dos N ativos, X estão em situação saudável e Y pedem atenção. O ponto mais sensível é … [n], porque …
+<!-- Até 60 palavras. Responde: os ativos estão bem? Existe ameaça à frente? Qual a mais importante?
+     Quem ler só este bloco e a tabela precisa sair com a resposta certa. -->
+**Em uma linha.** Dos N ativos, X estão saudáveis e Y pedem atenção; o ponto mais sensível é … [n].
+
+**Por que importa.** A consequência possível para o investidor, em 1–2 frases.
 
 | Ativo | Situação | Em uma frase |
 | --- | --- | --- |
@@ -19,23 +26,59 @@ Dos N ativos, X estão em situação saudável e Y pedem atenção. O ponto mais
 
 ## O que merece sua atenção
 
-<!-- No máximo 5, do mais grave ao menos grave. Cada item: o fato, o que ele significa e a consequência possível. -->
-1. 🔴 **TICKER — título curto do problema.** Fato com número [n]. O que ele significa. Por que isso pode afetar o investidor.
+<!-- No máximo 5, do mais grave ao menos grave. Cada item com até 40 palavras: o fato, o que ele significa
+     e a consequência possível. O detalhe fica no "Saiba mais" do ativo. -->
+1. 🔴 **TICKER — título curto do problema.** Fato com número [n], o que ele significa e a consequência possível.
 2. …
 
 ## Ativo por ativo
 
+<!-- Um cartão por ativo, até 80 palavras sem contar as referências [n]. Rótulos fixos, nesta ordem. -->
+
 ### TICKER — Nome · 🟡 Atenção
 
-**Em resumo.** 2–3 frases: como o ativo está hoje e qual a principal ameaça à frente. Se a leitura for provisória, diga em linguagem comum o que faltou.
+**Em uma linha.** A coisa mais importante sobre o ativo hoje, numa frase com verbo forte [n].
 
-#### Por que essa situação
+**Por que importa.** A consequência possível para proventos, preço ou risco.
+
+**Em números.**
+- valor [n] — o que significa e se é bom ou ruim
+- valor [n] — …
+- valor [n] — …
+
+**O que observar.** Evento ou indicador (data) que pode mudar o quadro.
+
+<!-- Se a leitura for provisória, diga aqui numa frase o que faltou. -->
+→ Saiba mais: TICKER
+
+<!-- repetir o cartão para cada ativo -->
+
+## Carteira e cenário
+
+<!-- Até 60 palavras. A concentração e o fator de mercado que mais afeta a carteira agora. -->
+**Em uma linha.** …
+
+**Por que importa.** …
+
+**Em números.**
+- valor [n] — o que significa
+
+## Limites desta leitura
+
+<!-- Até 3 lacunas que mudam a conclusão, uma linha cada. A lista completa fica no "Saiba mais". -->
+- …
+
+# Saiba mais
+
+## Saiba mais: TICKER — Nome · 🟡 Atenção
+
+### Por que essa situação
 <!-- Os sinais que definem a situação, do mais grave ao mais leve. Cada um: fato [n] → o que mede → por que importa.
      Feche com uma frase sobre o que está em ordem (sem listar tudo o que não acendeu alerta). -->
 - **Título do sinal.** Fato [n]. O que esse número mede. Comparação com a referência usada (histórico, concorrentes ou o patamar considerado alto/baixo para o setor) e a consequência possível.
 - O que está em ordem: …
 
-#### Como está hoje
+### Como está hoje
 <!-- Nada de lista de números soltos: cada bloco compara com uma referência e fecha com uma conclusão
      (knowledge/leitura-de-indicadores.md). -->
 
@@ -87,28 +130,28 @@ P/L é quantos anos de lucro atual o preço da ação representa; P/VP compara o
 
 **O que o preço embute:** 1–2 frases com a conclusão descritiva de `knowledge/leitura-de-indicadores.md` (seção 6), sem "barato" ou "caro".
 
-#### O que vem pela frente (3–12 meses)
+### O que vem pela frente (3–12 meses)
 Eventos com data (resultados, Copom, vencimentos, assembleias) e consenso de terceiros identificado, explicando o que cada um pode mudar.
 
-#### Setor e cenário
+### Setor e cenário
 Como o setor está e como juros, inflação e câmbio chegam a este ativo, em 2–4 frases.
 
-#### O que pode mudar o quadro
+### O que pode mudar o quadro
 
 | Fator | Efeito possível | Sinal para observar |
 | --- | --- | --- |
 | … | … | … |
 
-#### Riscos
+### Riscos
 <!-- Do maior impacto ao menor; específicos da empresa antes dos riscos de mercado. -->
 1. **Nome do risco em linguagem comum.** Fato [n] e por que ele é um risco: o que poderia acontecer com o resultado, os proventos ou o preço.
 
-#### O que acompanhar
+### O que acompanhar
 - **Indicador ou evento** (data ou frequência) — por que ele importa para este ativo.
 
-<!-- repetir para cada ativo -->
+<!-- repetir "Saiba mais: TICKER" para cada ativo, na mesma ordem dos cartões -->
 
-## A carteira como um todo
+## Saiba mais: a carteira como um todo
 
 <!-- Cada parágrafo: o fato, o que ele significa e a consequência possível. Sem recomendar alocação. -->
 **Concentração.** …
@@ -119,15 +162,15 @@ Como o setor está e como juros, inflação e câmbio chegam a este ativo, em 2�
 
 **Seu perfil.** Como a composição conversa com o objetivo, o horizonte e a tolerância a risco informados.
 
-## Cenário econômico
+## Saiba mais: cenário econômico
 
 Para cada dado (Selic, IPCA, projeções do Focus, câmbio, curva de juros) [n]: o número, a tendência esperada e **qual ativo da carteira ele afeta e em que direção**. Dados que não afetam nenhum ativo ficam de fora.
 
 **Desempenho da carteira vs. CDI:** se houver pesos, retorno ponderado em 12 meses e 5 anos contra o CDI acumulado [n], com uma frase de leitura.
 
-## O que esta análise não cobriu
+## Saiba mais: o que esta análise não cobriu
 
-<!-- Dados não encontrados, divergências entre fontes e o efeito disso na leitura. Sem ofertas nem perguntas. -->
+<!-- Lista completa: dados não encontrados, divergências entre fontes e o efeito disso na leitura. Sem ofertas nem perguntas. -->
 - …
 
 ## Fontes

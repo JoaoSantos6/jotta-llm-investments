@@ -2,6 +2,38 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versões seguem [SemVer](https://semver.org/lang/pt-BR/).
 
+## [1.4.0] — 2026-11-01
+
+Brevidade inteligente: a resposta primeiro, curta; o detalhe em "Saiba mais".
+
+### Adicionado
+- `rules/escrita.md`, seção 2a: relatório em duas camadas, "Leitura rápida" e "Saiba mais", inspiradas em *Smart Brevity* (VandeHei, Allen e Schwartz).
+  - Rótulos fixos por ativo: em uma linha, por que importa, em números, o que observar.
+  - Limites de tamanho: cartão de ativo até 80 palavras, resumo da carteira até 60, item de atenção até 40.
+  - Sem tabelas na leitura rápida, além da síntese.
+  - Regra de coerência entre as camadas; nada obrigatório é cortado.
+- HTML interativo:
+  - cartões por ativo com botão "Saiba mais";
+  - linhas da tabela-síntese clicáveis;
+  - botão para abrir e fechar todos os detalhes;
+  - fonte exibida ao clicar em `[n]`;
+  - tema claro e escuro e tempo estimado de leitura;
+  - funciona sem JavaScript, com todo o detalhe aberto.
+- Itens F1–F6 (bloqueantes) no checklist do revisor.
+- Sessão de teste 08 (brevidade inteligente), agora obrigatória para aprovar uma LLM.
+- `validar_repo.py` checa os rótulos de brevidade nos três templates e o botão "Saiba mais" no HTML.
+
+### Alterado
+- Templates de relatório (markdown, chat e HTML) reorganizados em "Leitura rápida" + "Saiba mais".
+- Detalhe "resumido" passa a ser a leitura rápida; "completo" acrescenta o "Saiba mais".
+- PDF: leitura rápida nas primeiras páginas; "Saiba mais" em página nova, todo aberto, com cada ativo em página própria.
+
+### Corrigido
+- `gerar_pdf.py`:
+  - tenta cada navegador encontrado, em ordem, até um gerar o PDF, com limite de 60 s por navegador;
+  - reconhece o `chrome-headless-shell` do Playwright (em contêineres Linux, o Chromium completo pode travar no `--print-to-pdf`);
+  - passa `--no-sandbox` quando roda como root.
+
 ## [1.3.0] — 2026-10-31
 
 Do número à conclusão: o relatório compara e conclui, em vez de listar dados.
