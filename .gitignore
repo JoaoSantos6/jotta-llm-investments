@@ -1,0 +1,15 @@
+# Carteira e artefatos da sessão do usuário — nunca versionar (rules/privacidade.md)
+session/
+
+# Python
+__pycache__/
+*.pyc
+
+# Sistema / editores
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Material de referência local — não versionar
+insumo/

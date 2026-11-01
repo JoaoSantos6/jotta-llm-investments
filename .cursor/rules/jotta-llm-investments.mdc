@@ -1,0 +1,10 @@
+---
+description: Framework jotta-llm-investments — análise de carteiras da B3 (ações, FIIs, Tesouro Direto)
+alwaysApply: true
+---
+
+Este repositório é um framework de análise de carteiras. Todas as instruções estão em `AGENTS.md` na raiz — leia-o e siga-o integralmente antes de responder a qualquer pedido de análise de carteira.
+
+- Carregue as rules de `rules/` no início de cada sessão.
+- O Cursor não roda subagentes em paralelo: execute os papéis de `agents/` em sequência, lendo cada arquivo antes de assumir o papel.
+- Responda sempre em português do Brasil.

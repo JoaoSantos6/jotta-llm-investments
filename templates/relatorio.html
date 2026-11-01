@@ -1,0 +1,126 @@
+<!doctype html>
+<!--
+  Template do relatório HTML (autocontido: sem CSS/JS/fontes/imagens externas).
+  Como preencher (skills/gerar-relatorio). Mesmo conteúdo de session/relatorio.md,
+  escrito para o investidor (rules/escrita.md): sem códigos internos, todo número explicado.
+    {{TITULO}}          "Sua carteira em AAAA-MM-DD"
+    {{META}}            objetivo · horizonte · tolerância · data de coleta (texto simples)
+    {{RESUMO}}          <p> com o "Em resumo" da carteira (2–4 frases)
+    {{SINTESE_LINHAS}}  <tr> por ativo: ativo, situação (badge), em uma frase
+    {{ALERTAS}}         <li> por item de "O que merece sua atenção"; use <span class="estado e-perigoso">Perigoso</span> etc.
+    {{ATIVOS}}          um <section class="ativo"> por ativo (ver exemplo comentado abaixo)
+    {{CONSOLIDADA}}     <p> para concentração, juros/inflação/câmbio, riscos em comum, seu perfil
+    {{MACRO}}           <p> com o cenário econômico
+    {{LACUNAS}}         <li> por item de "O que esta análise não cobriu"
+    {{FONTES}}          <li id="f1"> por fonte: nome — <a href>URL</a> — ref. — coletado em
+    {{DISCLAIMER}}      texto de templates/disclaimer.md, sem alterações
+  Classes de estado: e-saudavel | e-atencao | e-queda | e-perigoso
+  Referências [n] no texto: <a class="ref" href="#fn">[n]</a>
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITULO}}</title>
+<style>
+  :root {
+    --bg: #ffffff; --fg: #1c1e21; --muted: #5f6368; --line: #dadce0; --soft: #f5f6f7;
+    --saudavel: #1e7d32; --atencao: #a66a00; --queda: #c2410c; --perigoso: #b3261e;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #16181b; --fg: #e8eaed; --muted: #a0a4aa; --line: #3a3d42; --soft: #202327;
+      --saudavel: #6cc070; --atencao: #e0a840; --queda: #f08a55; --perigoso: #f2827a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg);
+         font: 15px/1.55 -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+  main { max-width: 880px; margin: 0 auto; padding: 32px 16px 48px; }
+  h1 { font-size: 1.6rem; margin: 0 0 4px; }
+  h2 { font-size: 1.25rem; margin: 36px 0 12px; padding-bottom: 6px; border-bottom: 1px solid var(--line); }
+  h3 { font-size: 1.05rem; margin: 20px 0 8px; }
+  .meta { color: var(--muted); margin: 0 0 24px; }
+  table { width: 100%; border-collapse: collapse; margin: 8px 0 16px; font-size: .93rem; }
+  th, td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: var(--soft); font-weight: 600; }
+  .tabela { overflow-x: auto; }
+  .alertas { background: var(--soft); border-left: 4px solid var(--perigoso); padding: 12px 16px 12px 36px; border-radius: 4px; }
+  .alertas li { margin: 4px 0; }
+  .estado { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: .82rem; font-weight: 600;
+            border: 1px solid currentColor; white-space: nowrap; }
+  .e-saudavel { color: var(--saudavel); } .e-atencao { color: var(--atencao); }
+  .e-queda { color: var(--queda); } .e-perigoso { color: var(--perigoso); }
+  .ativo { border: 1px solid var(--line); border-radius: 6px; padding: 4px 16px 12px; margin: 16px 0; break-inside: avoid-page; }
+  .ativo h3 { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .resumo p, .em-resumo { font-size: 1.02rem; }
+  a { color: inherit; } a.ref { text-decoration: none; color: var(--muted); font-size: .85em; }
+  .fontes { font-size: .85rem; color: var(--muted); word-break: break-word; }
+  .disclaimer { margin-top: 32px; padding: 12px 16px; border: 1px solid var(--line); border-radius: 4px; font-size: .85rem; color: var(--muted); }
+  @media print {
+    :root { --bg: #fff; --fg: #000; --muted: #444; --soft: #f2f2f2; }
+    main { padding: 0; max-width: none; }
+    a { text-decoration: none; }
+    h2 { break-after: avoid; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>{{TITULO}}</h1>
+  <p class="meta">{{META}}</p>
+
+  <h2>Em resumo</h2>
+  <div class="resumo">{{RESUMO}}</div>
+  <div class="tabela">
+    <table>
+      <thead><tr><th>Ativo</th><th>Situação</th><th>Em uma frase</th></tr></thead>
+      <tbody>
+        {{SINTESE_LINHAS}}
+      </tbody>
+    </table>
+  </div>
+
+  <h2>O que merece sua atenção</h2>
+  <ol class="alertas">
+    {{ALERTAS}}
+  </ol>
+
+  <h2>Ativo por ativo</h2>
+  {{ATIVOS}}
+  <!--
+  <section class="ativo">
+    <h3>HGLG11 — Nome do fundo <span class="estado e-atencao">Atenção</span></h3>
+    <p class="em-resumo"><strong>Em resumo.</strong> Como o ativo está hoje e qual a principal ameaça à frente.</p>
+    <h4>Por que essa situação</h4>
+    <ul><li><strong>Cota acima do valor dos imóveis.</strong> A cota é negociada 22% acima do valor patrimonial (P/VP de 1,22) <a class="ref" href="#f3">[3]</a>. Quanto mais acima, mais o preço depende de o rendimento continuar alto.</li></ul>
+    <h4>Como está hoje</h4><p>…</p>
+    <h4>O que vem pela frente (3–12 meses)</h4><p>…</p>
+    <h4>Setor e cenário</h4><p>…</p>
+    <h4>O que pode mudar o quadro</h4>
+    <div class="tabela"><table><thead><tr><th>Fator</th><th>Efeito possível</th><th>Sinal para observar</th></tr></thead><tbody>…</tbody></table></div>
+    <h4>Riscos</h4><ol>…</ol>
+    <h4>O que acompanhar</h4><ul>…</ul>
+  </section>
+  -->
+
+  <h2>A carteira como um todo</h2>
+  {{CONSOLIDADA}}
+
+  <h2>Cenário econômico</h2>
+  {{MACRO}}
+
+  <h2>O que esta análise não cobriu</h2>
+  <ul>
+    {{LACUNAS}}
+  </ul>
+
+  <h2>Fontes</h2>
+  <ol class="fontes">
+    {{FONTES}}
+  </ol>
+
+  <p class="disclaimer">{{DISCLAIMER}}</p>
+</main>
+</body>
+</html>
