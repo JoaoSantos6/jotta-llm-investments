@@ -76,6 +76,12 @@ Depois desses rótulos vem o link para o "Saiba mais" do mesmo bloco.
 | HTML | Primeira parte da página, com um cartão por ativo. | Cada cartão tem um **botão "Saiba mais"** que abre o detalhe do ativo. Há também um botão para abrir ou fechar todos os detalhes. |
 | PDF | Primeiras páginas: o leitor tem a resposta inteira antes de virar para o detalhe. | Parte seguinte, com todo o detalhe aberto; cada ativo começa em página nova. |
 
+### Entrega em arquivo: o chat não repete o conteúdo
+
+Quando o formato pedido é HTML ou PDF, a resposta no chat é **somente o(s) arquivo(s) e o aviso legal**. O conteúdo do relatório não é repetido no chat, nem em resumo, nem em leitura rápida, nem em tabela, nem em lista de alertas. Também não entram frases de apresentação ("segue o arquivo…"), explicações de como o arquivo funciona ou o caminho em texto. O leitor pediu um arquivo e recebe um arquivo.
+
+A única exceção é a falha: se o PDF não puder ser gerado, uma frase diz isso e como obtê-lo (`skills/gerar-relatorio`).
+
 ## 3. Nenhum número sozinho
 
 Todo número que aparece para o usuário vem com três partes:

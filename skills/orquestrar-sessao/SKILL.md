@@ -27,7 +27,7 @@ saidas: session/ completo e relatório entregue
    - devolva ao analista para atualizar classificação e análise.
    Faça **uma rodada**, com até 2 perguntas por ativo. O que continuar sem resposta vai para "O que esta análise não cobriu". Registre no `session/log.md`.
 8. **Revisão.** Execute [`skills/revisar-relatorio`](../revisar-relatorio/SKILL.md). Se `REPROVADO`, devolva os apontamentos ao analista e repita 6→8 (máx. 3 ciclos, ver `rules/fluxo.md`). Nova coleta pontual pedida pelo revisor conta como aprofundamento. *(Porta B)*
-9. **Entrega.** Execute [`skills/gerar-relatorio`](../gerar-relatorio/SKILL.md) no formato do briefing. A entrega termina no aviso legal: sem "próximos passos", sem ofertas e sem perguntas ao usuário (`rules/escrita.md`).
+9. **Entrega.** Execute [`skills/gerar-relatorio`](../gerar-relatorio/SKILL.md) no formato do briefing. Em HTML ou PDF, o chat recebe **somente o(s) arquivo(s) e o aviso legal**, sem repetir o conteúdo; os arquivos levam data, hora e ativos no nome. A entrega termina no aviso legal: sem "próximos passos", sem ofertas e sem perguntas ao usuário (`rules/escrita.md`).
 
 ## Comunicação com o usuário durante a sessão
 

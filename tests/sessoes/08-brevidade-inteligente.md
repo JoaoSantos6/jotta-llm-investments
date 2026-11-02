@@ -24,13 +24,14 @@ Depois da entrega, peça também a versão em PDF e, em outra rodada, a versão 
   - o que vem pela frente, setor e cenário, o que pode mudar o quadro;
   - riscos e o que acompanhar.
 - [ ] **HTML:**
+  - o arquivo se chama `relatorio-AAAA-MM-DD-HHMM-TICKERS.html`, e a resposta no chat é só o arquivo e o aviso legal;
   - cada cartão tem um botão "Saiba mais" que abre o detalhe do ativo, e o detalhe tem "Voltar à leitura rápida";
   - clicar numa linha da tabela-síntese abre o detalhe do ativo;
   - há um botão para abrir e fechar todos os detalhes;
   - clicar numa referência `[n]` mostra a fonte;
   - sem JavaScript, todo o detalhe aparece aberto;
   - o arquivo não carrega nenhum recurso externo.
-- [ ] **PDF:** a leitura rápida ocupa as primeiras páginas; o "Saiba mais" começa em página nova, todo aberto, sem botões.
+- [ ] **PDF:** a leitura rápida ocupa as primeiras páginas; o "Saiba mais" começa em página nova, todo aberto, sem botões. Tem o mesmo nome-base do HTML, e a resposta no chat é só o arquivo e o aviso legal.
 - [ ] **Chat "resumido":** só a leitura rápida, com limites desta leitura, fontes citadas e aviso legal.
 - [ ] **Chat "completo":** a leitura rápida inteira e depois o bloco "Saiba mais".
 

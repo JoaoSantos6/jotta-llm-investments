@@ -2,6 +2,15 @@
 
 Formato baseado em [Keep a Changelog](https://keepachangelog.com/pt-BR/1.1.0/); versões seguem [SemVer](https://semver.org/lang/pt-BR/).
 
+## [1.5.0] — 2026-11-02
+
+Entrega em arquivo mais limpa.
+
+### Alterado
+- **Chat só com o que foi pedido.** Em HTML ou PDF, a resposta no chat é somente o(s) arquivo(s) e o aviso legal, sem resumo, tabela, alertas, frase de apresentação ou caminho em texto. Antes, a skill mandava repetir a leitura rápida no chat. A única exceção é uma frase quando o PDF não pode ser gerado. Regra em `rules/escrita.md` (2a) e `skills/gerar-relatorio`.
+- **Nome dos arquivos.** `relatorio-AAAA-MM-DD-HHMM-TICKERS.html` e `.pdf` (mesmo nome-base), no lugar de `relatorio.html` e `relatorio.pdf`: data e hora da geração e ativos analisados. Mais de 4 ativos: três primeiros e `mais-N`. Novas gerações não sobrescrevem as anteriores, exceto no mesmo minuto.
+- `templates/relatorio-chat.md` vale só para o formato chat; `orquestrar-sessao`, `PRD`, `CLAUDE.md`, `gerar_pdf.py` e os testes 02, 03 e 08 acompanham as duas mudanças.
+
 ## [1.4.0] — 2026-11-01
 
 Brevidade inteligente: a resposta primeiro, curta; o detalhe em "Saiba mais".

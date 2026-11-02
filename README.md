@@ -20,7 +20,11 @@ Não é app, site nem API: é um conjunto de **rules**, **skills**, **agentes** 
 
 **Primeiro, a leitura rápida** (brevidade inteligente): em 2–3 minutos, quais ativos estão bem, quais pedem atenção e qual a principal ameaça. Cada ativo ganha um cartão curto com quatro partes: em uma linha, por que importa, em números e o que observar.
 
-**Depois, o "Saiba mais":** a parte densa, com tabelas, comparações com o setor, riscos e cenário. Nada é cortado, só reordenado. No HTML, cada cartão tem um botão "Saiba mais"; no PDF, o detalhe vem depois da leitura rápida; no chat, só aparece no detalhe "completo". Cada número vem explicado: o que ele mede e por que é bom ou ruim.
+**Depois, o "Saiba mais":** a parte densa, com tabelas, comparações com o setor, riscos e cenário. Nada é cortado, só reordenado. No HTML, cada cartão tem um botão "Saiba mais"; no PDF, o detalhe vem depois da leitura rápida; no chat, só aparece no detalhe "completo".
+
+**Entrega em arquivo:** se você pede HTML ou PDF, o chat traz só o arquivo e o aviso legal, sem repetir o conteúdo. O nome do arquivo leva data, hora e ativos (`relatorio-2026-11-02-0932-TAEE4-VIVT3.html`), então relatórios diferentes não se confundem.
+
+Cada número vem explicado: o que ele mede e por que é bom ou ruim.
 
 **Por ativo:** situação (🟢 saudável · 🟡 atenção · 🟠 em queda · 🔴 perigoso) e por quê, como está hoje, o que vem pela frente em 3–12 meses, setor e cenário, o que pode mudar o quadro, riscos e o que acompanhar.
 
