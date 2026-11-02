@@ -1,4 +1,6 @@
-<!-- Formato da entrega no chat. Deriva de session/relatorio.md; não adiciona fatos.
+<!-- Formato da entrega NO CHAT. Só se usa quando o formato pedido é "chat". Em HTML ou PDF, o chat
+     recebe apenas o(s) arquivo(s) e o aviso legal (skills/gerar-relatorio), sem nada deste template.
+     Deriva de session/relatorio.md; não adiciona fatos.
      Siga rules/escrita.md: conclusão primeiro, sem códigos internos, todo número explicado,
      nada depois do aviso legal (sem "próximos passos", ofertas ou perguntas).
      Brevidade inteligente (rules/escrita.md, seção 2a): toda a leitura rápida vem primeiro, junta.
@@ -63,8 +65,6 @@ Cada dado com o ativo que ele afeta.
 
 [1] …
 </details>
-
-<!-- Só se houver HTML/PDF: uma linha com os caminhos dos arquivos gerados. -->
 
 ---
 <!-- disclaimer de templates/disclaimer.md, sem alterações. Nada depois dele. -->

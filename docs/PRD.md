@@ -114,9 +114,10 @@ Saída: `session/briefing.md`, confirmado pelo usuário antes de seguir.
 
 **RF-08 Saída.** Três renderizadores sobre o mesmo conteúdo:
 
-- **Chat:** markdown resumido, com tabela-síntese e alertas no topo.
-- **HTML:** arquivo único autocontido a partir de `templates/relatorio.html`.
+- **Chat:** markdown com leitura rápida no topo e, no detalhe completo, o "Saiba mais".
+- **HTML:** arquivo único autocontido a partir de `templates/relatorio.html`, com botões "Saiba mais".
 - **PDF:** gerado do HTML (script em `scripts/`) ou nativo, quando a LLM tiver ferramenta para isso.
+- **Entrega em arquivo:** quando o formato é HTML ou PDF, o chat recebe somente o arquivo e o aviso legal, sem repetir o conteúdo. Os arquivos levam data, hora e ativos no nome (`relatorio-AAAA-MM-DD-HHMM-TICKERS.html`).
 
 **RF-09 Disclaimer.** Todo relatório termina com aviso de que é material informativo e não constitui recomendação de investimento.
 

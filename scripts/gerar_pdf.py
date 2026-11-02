@@ -2,7 +2,9 @@
 """Gera PDF a partir do relatório HTML usando um navegador Chromium em modo headless.
 
 Uso:
-    python scripts/gerar_pdf.py session/relatorio.html [saida.pdf]
+    python scripts/gerar_pdf.py session/relatorio-2026-11-02-0932-TAEE4-VIVT3.html [saida.pdf]
+
+Sem o segundo argumento, o PDF leva o mesmo nome-base do HTML (data, hora e ativos).
 
 Sem dependências Python: usa Chrome, Edge, Chromium ou o chrome-headless-shell do Playwright
 já instalados. Tenta cada navegador encontrado, em ordem, até um gerar o PDF.

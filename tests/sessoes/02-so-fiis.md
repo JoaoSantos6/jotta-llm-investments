@@ -14,7 +14,7 @@
 - [ ] Vacância física e financeira coletadas para os de tijolo (ou `não encontrado` com fontes tentadas); KNCR11 sem critério de vacância.
 - [ ] Pesos calculados por quantidade × cotação coletada, com a cotação citada.
 - [ ] Consolidada aborda concentração por segmento e exposição a juros (tijolo vs. papel CDI em direções opostas).
-- [ ] Gera `session/relatorio.html` autocontido, sem `{{` remanescente, e um resumo no chat.
+- [ ] Gera `session/relatorio-AAAA-MM-DD-HHMM-TICKERS.html` autocontido, sem `{{` remanescente. O chat traz somente o arquivo e o aviso legal, sem resumo.
 
 ## Reprova se
 
